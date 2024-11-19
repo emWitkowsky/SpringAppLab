@@ -22,15 +22,31 @@
         <th>Nazwisko</th>
         <th>Email</th>
         <th>Kompania</th>
+        <th>Zarobki</th>
+        <th>Waluta</th>
+        <th>Kraj</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="person : ${persons}">
-        <td th:text="${person.id}">1</td>
+        <td th:text="${person.id}">Id</td>
         <td th:text="${person.name}">Imie</td>
         <td th:text="${person.lastName}">Nazwisko</td>
         <td th:text="${person.email}">Email</td>
         <td th:text="${person.company}">Kompania</td>
+        <td th:text="${person.salary}">Zarobki</td>
+        <td th:text="${person.currency}">Waluta</td>
+        <td th:text="${person.country}">Kraj</td>
+        <td>
+          <a th:href="@{/persons/edit/{id}(id=${person.id})}"
+             class="btn btn-sm btn-info">Edytuj</a>
+        </td>
+        <td>
+          <form th:action="@{/persons/delete/{id}(id=${person.id})}" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć tę osobę?');">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
+          </form>
+        </td>
         <td>
           <a th:href="@{/persons/details/{id}(id=${person.id})}"
              class="btn btn-sm btn-info">Szczegóły</a>

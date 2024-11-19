@@ -15,6 +15,9 @@
       <p><strong>Nazwisko:</strong> <span th:text="${person.lastName}">Nazwisko</span></p>
       <p><strong>Email:</strong> <span th:text="${person.email}">Email</span></p>
       <p><strong>Kompania:</strong> <span th:text="${person.company}">Kompania</span></p>
+      <p><strong>Zarobki:</strong> <span th:text="${person.salary}">Zarobki</span></p>
+      <p><strong>Waluta:</strong> <span th:text="${person.currency}">Waluta</span></p>
+      <p><strong>Kraj:</strong> <span th:text="${person.country}">Kraj</span></p>
     </div>
     <div class="card-footer">
       <a th:href="@{/persons/list}" class="btn btn-secondary">Powrót</a>

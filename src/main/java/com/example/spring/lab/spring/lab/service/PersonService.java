@@ -5,6 +5,7 @@ package com.example.spring.lab.spring.lab.service;
 
 import com.example.spring.lab.spring.lab.domain.Person;
 //import com.example.spring.lab.spring.lab.domain.PersonCSV;
+import com.example.spring.lab.spring.lab.repository.PeopleRepository;
 import org.springframework.stereotype.Service;
 
 //import java.io.BufferedReader;
@@ -23,17 +24,22 @@ public class PersonService {
 private final List<Person> people = new ArrayList<>();
 
 //    public PeopleService() {};
+    private final PeopleRepository peopleRepository;
 
-    public PersonService() {
-        initializePeople();
+    public PersonService(PeopleRepository peopleRepository) {
+        this.peopleRepository = peopleRepository;
     }
 
-    private void initializePeople() {
-        people.add(new Person(1, "John", "Doe", "john.doe@example.com", "Company A"));
-        people.add(new Person(2, "Jane", "Smith", "jane.smith@example.com", "Company B"));
-        people.add(new Person(3, "Alice", "Johnson", "alice.johnson@example.com", "Company C"));
-        people.add(new Person(4, "Bob", "Brown", "bob.brown@example.com", "Company D"));
-    }
+//    public PersonService() {
+//        initializePeople();
+//    }
+//
+//    private void initializePeople() {
+//        people.add(new Person(1, "John", "Doe", "john.doe@example.com", "Company A", 2000, "EUR", "Polska"));
+//        people.add(new Person(2, "Jane", "Smith", "jane.smith@example.com", "Company B", 2000, "EUR", "Polska"));
+//        people.add(new Person(3, "Alice", "Johnson", "alice.johnson@example.com", "Company C", 2000, "JPY", "Polska"));
+//        people.add(new Person(4, "Bob", "Brown", "bob.brown@example.com", "Company D", 2000, "EUR", "Niemcy"));
+//    }
 
 //    public List<Person> loadPeopleFromCSV(String filePath) {
 //        List<Person> people = new ArrayList<>();
@@ -73,11 +79,13 @@ private final List<Person> people = new ArrayList<>();
 //    }
 
     public List<Person> getAllPersons() {
-        return new ArrayList<>(people);
+//        return new ArrayList<>(people);
+        return peopleRepository.findAll();
     }
 
     public Optional<Person> getPersonById(long id) {
-        return people.stream().filter(person -> person.getId() == id).findFirst();
+//        return people.stream().filter(person -> person.getId() == id).findFirst();
+        return peopleRepository.findById(id);
     }
 
     public Optional<Person> updatePerson(long id, Person updatedPerson) {
@@ -86,21 +94,28 @@ private final List<Person> people = new ArrayList<>();
             person.setLastName(updatedPerson.getLastName());
             person.setEmail(updatedPerson.getEmail());
             person.setCompany(updatedPerson.getCompany());
+            person.setSalary(updatedPerson.getSalary());
+            person.setCurrency(updatedPerson.getCurrency());
+            person.setCountry(updatedPerson.getCountry());
             return person;
         });
     }
 
-    public boolean deletePersonById(long id) {
+    public void deletePersonById(long id) {
 //        return people.stream().filter(person -> person.getId() != id );
-        return people.removeIf(person -> person.getId() == id);
+//        return people.removeIf(person -> person.getId() == id);
+        peopleRepository.deleteById(id);
     }
 
-    public boolean createNewPerson(Person createdPerson) {
-        return people.add(new Person(createdPerson.getId(),
+    public void createNewPerson(Person createdPerson) {
+        peopleRepository.save(new Person((int) createdPerson.getId(),
                 createdPerson.getName(),
                 createdPerson.getLastName(),
                 createdPerson.getEmail(),
-                createdPerson.getCompany()));
+                createdPerson.getCompany(),
+                createdPerson.getSalary(),
+                createdPerson.getCurrency(),
+                createdPerson.getCountry()));
     }
 
 }
