@@ -5,12 +5,13 @@ import com.example.spring.lab.spring.lab.domain.Person;
 import com.example.spring.lab.spring.lab.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/persons")
 public class PersonController {
     private final PersonService personService;
 
@@ -46,4 +47,6 @@ public class PersonController {
     public boolean createNewPerson(@RequestBody Person createdPerson) {
         return personService.createNewPerson(createdPerson);
     }
+
+
 }

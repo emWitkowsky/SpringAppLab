@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head"></head>
+<body>
+<div th:replace="fragments/layout.html :: body">
+  <div th:fragment="content">
+    <h2>Błąd</h2>
+    <p class="alert alert-danger" th:text="${errorMessage}">Wystąpił błąd.</p>
+    <a th:href="@{/persons}" class="btn btn-secondary">Powrót</a>
+  </div>
+</div>
+</body>
+</html>
